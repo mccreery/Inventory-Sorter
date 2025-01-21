@@ -11,7 +11,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -55,7 +54,7 @@ public abstract class MixinContainerScreen extends Screen implements SortableCon
             return;
         if (InventorySorterModClient.getConfig().displaySort && InventoryHelper.shouldDisplayBtns(client.player)) {
             boolean playerOnly = !InventoryHelper.canSortInventory(client.player);
-            this.addDrawableChild(invsort$SortBtn = new SortButtonWidget(this.x + this.backgroundWidth - 20, this.y + (playerOnly ? (backgroundHeight - 95) : 6), playerOnly));
+            this.addDrawableChild(invsort$SortBtn = new SortButtonWidget(this.x + this.backgroundWidth - 19, this.y + (playerOnly ? (backgroundHeight - 96) : 5), playerOnly));
             if (!playerOnly && InventorySorterModClient.getConfig().seperateBtn)
                 this.addDrawableChild(new SortButtonWidget(invsort$SortBtn.getX(), this.y + ((SortableContainerScreen) (this)).getMiddleHeight(), true));
         }
@@ -101,7 +100,7 @@ public abstract class MixinContainerScreen extends Screen implements SortableCon
     @Inject(method = "render", at = @At("TAIL"))
     private void invsort$render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (invsort$SortBtn != null)
-            invsort$SortBtn.setX(this.x + this.backgroundWidth - 20);
+            invsort$SortBtn.setX(this.x + this.backgroundWidth - 19);
     }
 
     @Override
@@ -112,6 +111,6 @@ public abstract class MixinContainerScreen extends Screen implements SortableCon
     @Override
     public int getMiddleHeight() {
         if (this.handler.slots.size() == 0) return 0;
-        return this.handler.getSlot(this.handler.slots.size() - 36).y - 12;
+        return this.handler.getSlot(this.handler.slots.size() - 36).y - 13;
     }
 }
